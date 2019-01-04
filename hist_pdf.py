@@ -60,9 +60,14 @@ dist = pd.DataFrame(data_array)
 from scipy import stats
 import seaborn as sns
 (mu, sigma) = stats.norm.fit(dist)
-sns.distplot(dist, bins='rice', fit=stats.norm, fit_kws={"label": "Norm Fit mu={:.2f} sigma={:.2f}".format(mu, sigma), "lw": 3}, kde=True,kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"},hist_kws={"histtype": "step", "lw": 2}, hist=True)
-plt.legend(loc='best')
-print("mu={0} , sigma={1}".format(mu, sigma))
-plt.show()
+f = plt.figure()
 
+sns.distplot(dist, bins='rice', fit=stats.norm, fit_kws={"label": "Norm Fit\nmu={:.2f} sigma={:.2f}".format(mu, sigma), "lw": 3}, kde=True,kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"},hist_kws={"histtype": "step", "lw": 2}, hist=True)
+plt.legend(loc='upper left')
+print("mu={0} , sigma={1}".format(mu, sigma))
+# plt.show()
+plt.tight_layout()
+f.savefig("test.png", bbox_inches=None)
+
+# f.savefig("test.pdf", bbox_inches="tight")
 # print(mean)

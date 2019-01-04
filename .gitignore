@@ -1,2 +1,4 @@
 # .gitignore
 __pychache__
+*.pdf 
+*.png
