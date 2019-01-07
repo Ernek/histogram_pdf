@@ -71,3 +71,71 @@ f.savefig("test.png", bbox_inches=None)
 
 # f.savefig("test.pdf", bbox_inches="tight")
 # print(mean)
+
+
+# Code for a multiple column file with data starting on row "R"
+
+#Function to read a file and obtain an array of its column data
+def read_file_lines(ffile, Nskip):
+    with open(ffile) as f:
+        flines = f.readlines()
+        Ncol = len(flines[0].split())  #Number of columns based on the first row data or labels
+        fwlist = []
+        for i in range(len(flines)):
+            if i <= Nskip - 1 :
+                continue
+            else:
+                fwlist.append(flines[i].split())
+
+        fwarray = np.array(fwlist)
+
+        #print(fwarray)
+
+        final_data = []
+        for k in range(Ncol):
+            fcarray = []
+            for i in range(len(fwarray)):
+                if k + 1 > len(fwarray[i]):
+                    continue
+                fcarray.append(fwarray[i][k])
+            final_data.append(fcarray)
+
+
+            #print(k + 1 , "\n")
+        #print(np.shape(fwarray))
+        #final_data = []
+        # for k in range(Ncol):
+        #     print(k)
+        #     fcarray = []
+        #     print(fwarray[k][:])
+            #print(fwarray[:,k])
+            #lstk = [item[k] for item in fwarray]
+            #print(lstk)
+            # for j in range(len(fwarray[:][k])):
+            #     if j <= int(Nskip-1):
+            #         continue
+            #     else:
+            #         fcarray.append(fwarray[j][k])
+            # final_data.append(np.array(fcarray))
+
+    return fwarray, final_data
+
+data_test = read_file_lines("nmr_al_li_all_nofilecount.dat", 1)[1]
+print(data_test[0], "\n", data_test[-1])
+
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+
+    (mu, sigma) = stats.norm.fit(dist)
+    f = plt.figure()
+
+    sns.distplot(dist, bins='rice', fit=stats.norm,
+                 fit_kws={"label": "Norm Fit\nmu={:.2f} sigma={:.2f}".format(mu, sigma), "lw": 3}, kde=True,
+                 kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"}, hist_kws={"histtype": "step", "lw": 2},
+                 hist=True)
+    plt.legend(loc='upper left')
+    print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+    plt.tight_layout()
+    f.savefig(f"test_{i+1}.png", bbox_inches=None)
