@@ -156,7 +156,6 @@ for i in range(len(data_test)):
     sns.distplot(dist, bins='rice', kde=True,
                  kde_kws={"label": f"{labels[i]}"}, hist_kws={"histtype": "step", "lw": 2},
                  hist=True)
-
     #print("mu={0} , sigma={1}".format(mu, sigma))
     # plt.show()
 plt.tight_layout()
@@ -181,6 +180,26 @@ for i in range(len(data_test)):
     # plt.show()
 plt.tight_layout()
 f.savefig(f"test_all_nofit_nohist.png", bbox_inches=None)
+
+
+f = plt.figure()
+plt.xlim(left=440, right=500)
+plt.ylim(top=0.12)
+#plt.legend(loc='upper left')
+labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+    (mu, sigma) = stats.norm.fit(dist)
+
+    sns.distplot(dist, bins='rice', fit=stats.norm,
+                 fit_kws={"label":f"{labels[i]}", "color":f"C{i}",  "lw":1.5}, kde=False, hist=False)
+
+    #print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+plt.legend(loc='upper left')
+plt.tight_layout()
+f.savefig(f"test_all_onlyfit.png", bbox_inches=None)
 
 
 data_dataframe = pd.DataFrame(data_test).T
