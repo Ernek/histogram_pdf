@@ -202,6 +202,25 @@ plt.tight_layout()
 f.savefig(f"test_all_onlyfit.png", bbox_inches=None)
 
 
+f = plt.figure()
+#plt.legend(loc='upper left')
+labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+    (mu, sigma) = stats.norm.fit(dist)
+
+    sns.distplot(dist, bins='rice', hist_kws={"histtype": "step", "label":f"{labels[i]}", "color":f"C{i}", "lw": 2},
+                 hist=True, kde=False)
+
+    #print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+plt.legend(loc='upper left')
+plt.tight_layout()
+f.savefig(f"test_all_onlyhist.png", bbox_inches=None)
+
+
+
 data_dataframe = pd.DataFrame(data_test).T
 data_dataframe.columns = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 print(data_dataframe)
