@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 
+
+
 f_inp_name="nmr_data_test.dat"
 with open(f_inp_name) as finp:
     finp_lines = finp.readlines()
@@ -16,9 +18,9 @@ data = []
 for i in range(len(finp_lines)):
     data.append(finp_text[i][5])
 
-print(data)
+#print(data)
 data_array = np.array(data, dtype=float)
-print(data_array)
+#print(data_array)
 
 # Histogram calculations in Numpy
 
@@ -101,12 +103,25 @@ def read_file_lines(ffile, Nskip):
 
     return fwarray, final_data
 
-data_test = read_file_lines("nmr_al_li_all_nofilecount.dat", 1)[1]
+data_test = read_file_lines("nmr_al_na_all_nofilecount.dat", 1)[1]
 print(data_test[0], "\n", data_test[-1])
 
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            #print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
     dist = pd.DataFrame(d_array)
+    #print(dist)
+    #print('JAJAJAJAJA')
 
     (mu, sigma) = stats.norm.fit(dist)
     f = plt.figure()
@@ -128,7 +143,20 @@ plt.ylim(top=0.12)
 #plt.legend(loc='upper left')
 labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            # print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
+    dist = pd.DataFrame(d_array)
+    # print(dist)
+    # print('JAJAJAJAJA')
+    #d_array = np.array(data_test[i], dtype=float)
     dist = pd.DataFrame(d_array)
     (mu, sigma) = stats.norm.fit(dist)
 
@@ -149,8 +177,21 @@ plt.ylim(top=0.12)
 #plt.legend(loc='upper left')
 labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            # print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
     dist = pd.DataFrame(d_array)
+
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
+
     (mu, sigma) = stats.norm.fit(dist)
 
     sns.distplot(dist, bins='rice', kde=True,
@@ -169,8 +210,21 @@ plt.ylim(top=0.12)
 #plt.legend(loc='upper left')
 labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            # print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
     dist = pd.DataFrame(d_array)
+    # print(dist)
+    # print('JAJAJAJAJA')
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
     (mu, sigma) = stats.norm.fit(dist)
 
     sns.distplot(dist, bins='rice', kde=True,
@@ -188,8 +242,21 @@ plt.ylim(top=0.12)
 #plt.legend(loc='upper left')
 labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            # print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
     dist = pd.DataFrame(d_array)
+    # print(dist)
+    # print('JAJAJAJAJA')
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
     (mu, sigma) = stats.norm.fit(dist)
 
     sns.distplot(dist, bins='rice', fit=stats.norm,
@@ -206,8 +273,22 @@ f = plt.figure()
 #plt.legend(loc='upper left')
 labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 for i in range(len(data_test)):
-    d_array = np.array(data_test[i], dtype=float)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            # print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+
+    d_array = np.array(new_list, dtype=float)
     dist = pd.DataFrame(d_array)
+    # print(dist)
+    # print('JAJAJAJAJA')
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
+
     (mu, sigma) = stats.norm.fit(dist)
 
     sns.distplot(dist, bins='rice', hist_kws={"histtype": "step", "label":f"{labels[i]}", "color":f"C{i}", "lw": 2},
@@ -220,8 +301,51 @@ plt.tight_layout()
 f.savefig(f"test_all_onlyhist.png", bbox_inches=None)
 
 
+print("\n\n\n\n")
+print(data_test)
+print("\n", len(data_test))
+for i in range(len(data_test)):
+    print(len(data_test[i]))
 
-data_dataframe = pd.DataFrame(data_test).T
+
+final_list = []
+for i in range(len(data_test)):
+    #d_array = np.array(data_test[i], dtype=float)
+    #dist = pd.DataFrame(d_array)
+    new_list = []
+    for k in range(len(data_test[i])):
+        #print(data_test[i][k])
+        if data_test[i][k] == "null":
+            #print('YOU KNOW')
+            continue
+        else:
+            new_list.append(data_test[i][k])
+    final_list.append(new_list)
+
+print("\n\n\n\n")
+print(final_list)
+
+for i in range(len(final_list)):
+    print(len(final_list[i]))
+
+data_dataframe = pd.DataFrame(final_list).T
+print(data_dataframe)
+    #d_array = np.array(new_list, dtype=float)
+    #dist = pd.DataFrame(d_array)
+#print(final_list)
+#nfinal_list = []
+#for i in range(len(final_list)):
+#    arr = np.array(final_list[i], dtype=float)
+#    nfinal_list.append(arr)
+#print("\n\n\n\n")
+#print(nfinal_list)
+
+# print("\n\n\n\n")
+# final_array = np.array([np.array(xi) for xi in final_list])
+# print(final_array)
+
+#data_dataframe = pd.DataFrame(final_array)
+#print(data_dataframe)
 data_dataframe.columns = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
 print(data_dataframe)
 
@@ -229,7 +353,7 @@ print(data_dataframe)
 fig, ax = plt.subplots()
 sns.boxplot(data=data_dataframe)
 ax.set_ylabel('Al NMR shielding tensor')
-ax.set_xlabel('r(Li-Al) in Å')
+ax.set_xlabel('r(Na-Al) in Å')
 sns.despine(offset=10, trim=True)
 
 
@@ -238,7 +362,7 @@ sns.despine(offset=10, trim=True)
 #        ax[i,j].sns.displot
 
 #plt.show()
-fig.savefig('al_li_nmr_N_4.png',  bbox_inches='tight')
+fig.savefig('al_na_nmr_N_4.png',  bbox_inches='tight')
 #g = sns.FacetGrid(data_dataframe, col="2.5", height=1.7, aspect=4,)
 
 #g.map(sns.distplot,
