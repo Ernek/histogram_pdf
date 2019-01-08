@@ -61,7 +61,8 @@ from scipy import stats
 import seaborn as sns
 (mu, sigma) = stats.norm.fit(dist)
 f = plt.figure()
-
+plt.xlim(left=440, right=500)
+plt.ylim(top=0.12)
 sns.distplot(dist, bins='rice', fit=stats.norm, fit_kws={"label": "Norm Fit\nmu={:.2f} sigma={:.2f}".format(mu, sigma), "lw": 3}, kde=True,kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"},hist_kws={"histtype": "step", "lw": 2}, hist=True)
 plt.legend(loc='upper left')
 print("mu={0} , sigma={1}".format(mu, sigma))
@@ -89,8 +90,6 @@ def read_file_lines(ffile, Nskip):
 
         fwarray = np.array(fwlist)
 
-        #print(fwarray)
-
         final_data = []
         for k in range(Ncol):
             fcarray = []
@@ -99,24 +98,6 @@ def read_file_lines(ffile, Nskip):
                     continue
                 fcarray.append(fwarray[i][k])
             final_data.append(fcarray)
-
-
-            #print(k + 1 , "\n")
-        #print(np.shape(fwarray))
-        #final_data = []
-        # for k in range(Ncol):
-        #     print(k)
-        #     fcarray = []
-        #     print(fwarray[k][:])
-            #print(fwarray[:,k])
-            #lstk = [item[k] for item in fwarray]
-            #print(lstk)
-            # for j in range(len(fwarray[:][k])):
-            #     if j <= int(Nskip-1):
-            #         continue
-            #     else:
-            #         fcarray.append(fwarray[j][k])
-            # final_data.append(np.array(fcarray))
 
     return fwarray, final_data
 
@@ -129,7 +110,8 @@ for i in range(len(data_test)):
 
     (mu, sigma) = stats.norm.fit(dist)
     f = plt.figure()
-
+    plt.xlim(left=440, right=500)
+    plt.ylim(top=0.12)
     sns.distplot(dist, bins='rice', fit=stats.norm,
                  fit_kws={"label": "Norm Fit\nmu={:.2f} sigma={:.2f}".format(mu, sigma), "lw": 3}, kde=True,
                  kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"}, hist_kws={"histtype": "step", "lw": 2},
@@ -139,3 +121,92 @@ for i in range(len(data_test)):
     # plt.show()
     plt.tight_layout()
     f.savefig(f"test_{i+1}.png", bbox_inches=None)
+
+f = plt.figure()
+plt.xlim(left=440, right=500)
+plt.ylim(top=0.12)
+#plt.legend(loc='upper left')
+labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+    (mu, sigma) = stats.norm.fit(dist)
+
+    sns.distplot(dist, bins='rice', fit=stats.norm,
+                 fit_kws={"lw": 0.5}, kde=True,
+                 kde_kws={"label": f"{labels[i]}"}, hist_kws={"histtype": "step", "lw": 2},
+                 hist=True)
+
+    #print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+plt.tight_layout()
+f.savefig(f"test_all.png", bbox_inches=None)
+
+
+f = plt.figure()
+plt.xlim(left=440, right=500)
+plt.ylim(top=0.12)
+#plt.legend(loc='upper left')
+labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+    (mu, sigma) = stats.norm.fit(dist)
+
+    sns.distplot(dist, bins='rice', kde=True,
+                 kde_kws={"label": f"{labels[i]}"}, hist_kws={"histtype": "step", "lw": 2},
+                 hist=True)
+
+    #print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+plt.tight_layout()
+f.savefig(f"test_all_nofit.png", bbox_inches=None)
+
+
+
+f = plt.figure()
+plt.xlim(left=440, right=500)
+plt.ylim(top=0.12)
+#plt.legend(loc='upper left')
+labels = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+for i in range(len(data_test)):
+    d_array = np.array(data_test[i], dtype=float)
+    dist = pd.DataFrame(d_array)
+    (mu, sigma) = stats.norm.fit(dist)
+
+    sns.distplot(dist, bins='rice', kde=True,
+                 kde_kws={"label": f"{labels[i]}"}, hist=False)
+
+    #print("mu={0} , sigma={1}".format(mu, sigma))
+    # plt.show()
+plt.tight_layout()
+f.savefig(f"test_all_nofit_nohist.png", bbox_inches=None)
+
+
+data_dataframe = pd.DataFrame(data_test).T
+data_dataframe.columns = ['2.5', '3.0', '3.5', '4.0', '4.5', '5.0', '5.5', '6.0']
+print(data_dataframe)
+
+
+fig, ax = plt.subplots()
+sns.boxplot(data=data_dataframe)
+ax.set_ylabel('Al NMR shielding tensor')
+ax.set_xlabel('r(Li-Al) in Å')
+sns.despine(offset=10, trim=True)
+
+
+#for i in range(8):
+#    for j in range(1):
+#        ax[i,j].sns.displot
+
+#plt.show()
+fig.savefig('al_li_nmr_N_4.png',  bbox_inches='tight')
+#g = sns.FacetGrid(data_dataframe, col="2.5", height=1.7, aspect=4,)
+
+#g.map(sns.distplot,
+
+      # (dist, bins='rice', fit=stats.norm,
+      #            fit_kws={"label": "Norm Fit", "lw": 3}, kde=True,
+      #            kde_kws={"label": "KDE"}, rug=True, rug_kws={"color": "blue"}, hist_kws={"histtype": "step", "lw": 2},
+      #            hist=True))
+
